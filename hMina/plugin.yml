@@ -1,0 +1,13 @@
+name: 'hMina'
+author: 'Haxney1319'
+api: 4.0.0
+main: haxney\Main
+version: '1.0BETA'
+commands: 
+  mina:
+    description: "abre uma window no mundo mina"
+    permission: mina.perm
+permissions:
+  mina.perm:
+    default: true
+    description: "habilita que o jogador use o comando"
