@@ -58,19 +58,14 @@ class Main extends PluginBase implements Listener {
   }
   
   public function generateConfig() : void {
-    $msg = "deve-se manter o 'dar-picareta' com um valor positivo caso o jogador possa receber uma picareta";
     $config = new Config($this->getDataFolder(). "config.yml", Config::YAML,
     [
-      "mundo-Nome" => 0,
-      "dar-picareta" => 0,
-       "debugMsg" => 0,
-      # => $msg
+      "mundo-Nome" => 0
       ]);
       $this->data = $config;
       $config->save();
       if(is_numeric($this->data->get("mundo-Nome"))){
-        // $this->getServer()->getLogger()->critical("[hMina]Erro de Configuração na sua yml.");
-        throw \Exception ("[hMina]Erro de Configuração na sua yml.", 1);
+         $this->getServer()->getLogger()->critical("[hMina]Erro de Configuração na sua yml.");
       }
   }
   
@@ -120,12 +115,10 @@ $menu->setListener(function(SimpleInvMenuTransaction $transaction) : InvMenuTran
         if($transaction->getItemClicked()->getId() === 21){
           return $transaction->discard();
         }
-        if($transaction->getItemClicked()->getId() === 339 && $this->data->get("dar-picareta") === true){
-          $player->sendMessage($this->data->get("dar-picareta"));
+        if($transaction->getItemClicked()->getId() === 339){
+          return $transaction->discard();
           $pick = ItemFactory::getInstance()->get(278, 0, 1);
           $player->getInventory()->addItem($pick);
-          $player->sendMessage("§aItem recebido.");
-          return $transaction->discard();
         }
         if($transaction->getItemClicked()->getId() === 101){
           $worldName = $this->data->get("mundo-Nome");
